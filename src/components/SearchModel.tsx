@@ -1,5 +1,5 @@
 import { Dialog } from "@reach/dialog";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import search from "../assets/search.svg";
 import { useNavigate } from "react-router-dom";
 import close from "../assets/close.svg";
@@ -11,6 +11,7 @@ interface SearchModelProps {
 export default function SearchModel({ open, updateOpen }: SearchModelProps) {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "k" && event.ctrlKey) {
@@ -33,7 +34,8 @@ export default function SearchModel({ open, updateOpen }: SearchModelProps) {
   };
   return open ? (
     <Dialog
-    onDismiss={() => updateOpen(false)}
+      onDismiss={() => updateOpen(false)}
+      initialFocusRef={inputRef}
       style={{
         padding: "0px",
         marginTop: "160px",
@@ -57,8 +59,11 @@ export default function SearchModel({ open, updateOpen }: SearchModelProps) {
           </div>
           <input
             type="text"
+            ref={inputRef}
             value={searchValue}
-            onChange={(event:React.ChangeEvent<HTMLInputElement>) => setSearchValue(event.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchValue(event.target.value)
+            }
             className="pl-2 bg-transparent inline-block text-[#72716A] text-xs flex-1 h-full outline-none"
             placeholder="search"
           />
