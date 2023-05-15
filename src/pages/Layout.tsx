@@ -12,6 +12,7 @@ export default function Layout() {
   const updateOpen = (value?: boolean) => {
     setOpen(value || !open);
   };
+
   return (
     <>
       <div className="min-h-screen isolate flex flex-col">

@@ -33,6 +33,7 @@ export default function SearchModel({ open, updateOpen }: SearchModelProps) {
   };
   return open ? (
     <Dialog
+    onDismiss={() => updateOpen(false)}
       style={{
         padding: "0px",
         marginTop: "160px",
