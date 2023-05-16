@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import Back from "./Back";
+import BackButton from "./BackButton";
 import { useGetSearchResultsQuery } from "../features/api/apiSlice";
 import NotFound from "../pages/NotFound";
 
@@ -31,7 +31,7 @@ export default function SearchResult({
   const regex = /\[.*\]$/g;
   return (
     <div className="pt-8 pb-8 text-[#4C4E4D]">
-      <Back
+      <BackButton
         handleClick={() => {
           navigate("..?q=" + searchValue);
         }}

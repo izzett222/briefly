@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Back from "../../components/Back";
+import BackButton from "../../components/BackButton";
 import { useGetArticleFromSourceQuery } from "../../features/api/apiSlice";
 
 export default function SourceArticle() {
@@ -31,7 +31,7 @@ export default function SourceArticle() {
   }
   return (
     <div className="pt-8 pb-8 text-[#4C4E4D]">
-      <Back
+      <BackButton
         handleClick={() => {
           navigate("..");
         }}
