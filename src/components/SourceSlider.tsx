@@ -8,7 +8,7 @@ export default function SourceSlider() {
   const { data, isError } = useGetSourcesQuery(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
   const motionContainerRef = useRef<HTMLDivElement>(null);
-  const [viewed, setViewed] = useState<number>(0);
+  const [viewed, setViewed] = useState(0);
 
   const goForward = () => {
     const motionContainerWidth = motionContainerRef.current

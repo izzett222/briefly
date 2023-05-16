@@ -8,7 +8,7 @@ import SourceSkeleton from "../components/skeletons/SourceSkeleton";
 
 export default function Layout() {
   const { isLoading: sourcesLoading } = useGetSourcesQuery(undefined);
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
   const updateOpen = (value?: boolean) => {
     setOpen(value || !open);
   };

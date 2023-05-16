@@ -31,18 +31,18 @@ export default function Article() {
         }}
       />
       <h1 className="font-medium text-[54px] leading-[1.1] mt-9 mb-3">
-        {article?.title}
+        {article.title}
       </h1>
       <p>
         <span className="font-medium">By </span>
-        {article?.author} | {article?.publishedAt?.slice(0, 10)}
+        {article.author} | {article.publishedAt?.slice(0, 10)}
       </p>
       <div className="my-8 gap-5 w-[70%]">
-        <p className="w-full">{article?.content?.replace(regex, "")}</p>
+        <p className="w-full">{article.content?.replace(regex, "")}</p>
         <Link
           target="_blank"
           className="bg-[#FFF200] font-bold text-xl px-4 py-2.5 mt-8 mb-4 inline-block"
-          to={article?.url}
+          to={article.url}
         >
           Read more
         </Link>
@@ -50,7 +50,7 @@ export default function Article() {
 
       <div>
         <img
-          src={article?.urlToImage}
+          src={article.urlToImage}
           className="w-[80%] aspect-[4/2] object-cover"
           alt="article"
         />
