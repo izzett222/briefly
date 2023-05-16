@@ -33,7 +33,7 @@ export default function SearchResult({
     <div className="pt-8 pb-8 text-[#4C4E4D]">
       <BackButton
         handleClick={() => {
-          navigate("..?q=" + searchValue);
+          navigate({ pathname: "..", search: `?q=${searchValue}` });
         }}
       />
       <h1 className="font-medium text-[54px] leading-[1.1] mt-9 mb-3">

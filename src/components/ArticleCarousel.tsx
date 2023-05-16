@@ -7,7 +7,7 @@ interface ArticleCarouselProps {
   to: string;
 }
 export default function ArticleCarousel({ articles, to }: ArticleCarouselProps) {
-  const [index, setIndex] = useState<number>(0);
+  const [index, setIndex] = useState(0);
   const goPrev = () => {
     if (index > 0) {
       setIndex(index - 1);

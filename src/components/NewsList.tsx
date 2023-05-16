@@ -26,11 +26,11 @@ export default function NewsList({ title, news, isLoading, to }: Props) {
           {isLoading ? (
             <Skeleton className="w-full h-[453px]" />
           ) : (
-            <AritcleCarousel to={to} articles={news?.slice(0, 5) as Article[]} />
+            <AritcleCarousel to={to} articles={news.slice(0, 5) as Article[]} />
           )}
 
           <div className="mt-10 hidden  lg:flex flex-col gap-4">
-            {news?.slice(8, 12).map((article) => {
+            {news.slice(8, 12).map((article) => {
               if (isLoading || typeof article === "number") {
                 return (
                   <div className="flex gap-4 md:gap-[30px]" key={article as number}>
@@ -66,7 +66,7 @@ export default function NewsList({ title, news, isLoading, to }: Props) {
             })}
           </div>
           <div className="mt-10 flex lg:hidden flex-col gap-4">
-            {news?.slice(5).map((article) => {
+            {news.slice(5).map((article) => {
               if (isLoading || typeof article === "number") {
                 return (
                   <div key={article as number} className="flex flex-col xs:flex-row gap-4 md:gap-[30px]">
@@ -105,7 +105,7 @@ export default function NewsList({ title, news, isLoading, to }: Props) {
           </div>
         </div>
         <div className="flex-1 hidden max-w-[300px] lg:flex flex-col gap-6">
-          {news?.slice(5, 8).map((article) => {
+          {news.slice(5, 8).map((article) => {
             if (isLoading || typeof article === "number") {
               return (
                 <div key={article as number}>
