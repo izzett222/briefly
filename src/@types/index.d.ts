@@ -1,4 +1,4 @@
-type Article = {
+interface Article {
     source: { id: null | string; name: string };
     author: string;
     content: string;
@@ -9,7 +9,7 @@ type Article = {
     urlToImage: string;
     id:string
   }
-  type Source = {
+  interface Source {
       id: string;
       name: string;
       description:string;
@@ -17,6 +17,6 @@ type Article = {
       country: string;
       url: string;
   }
-  type TransformResponse = {
+  interface TransformResponse {
       articles: Article[];
   }
