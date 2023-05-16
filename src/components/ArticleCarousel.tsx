@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import arrow from "../assets/arrow.svg";
 import { useState } from "react";
 import { motion } from "framer-motion";
-interface CarouselProps {
+interface ArticleCarouselProps {
   articles: Article[];
   to: string;
 }
-export default function Carousel({ articles, to }: CarouselProps) {
+export default function ArticleCarousel({ articles, to }: ArticleCarouselProps) {
   const [index, setIndex] = useState<number>(0);
   const goPrev = () => {
     if (index > 0) {

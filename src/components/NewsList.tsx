@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Carousel from "./Carousel";
+import AritcleCarousel from "./ArticleCarousel";
 import Skeleton from "react-loading-skeleton";
 
 type Props = {
@@ -26,7 +26,7 @@ export default function NewsList({ title, news, isLoading, to }: Props) {
           {isLoading ? (
             <Skeleton className="w-full h-[453px]" />
           ) : (
-            <Carousel to={to} articles={news?.slice(0, 5) as Article[]} />
+            <AritcleCarousel to={to} articles={news?.slice(0, 5) as Article[]} />
           )}
 
           <div className="mt-10 hidden  lg:flex flex-col gap-4">
