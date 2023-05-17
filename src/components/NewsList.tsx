@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
 import AritcleCarousel from "./ArticleCarousel";
 import Skeleton from "react-loading-skeleton";
+import SideArticle from "./cards/SideArticle";
+import HorizontalArticle from "./cards/HorizontalArticle";
 
 type Props = {
   title: string | undefined;
@@ -42,114 +43,32 @@ export default function NewsList({
           )}
 
           <div className="mt-10 hidden  lg:flex flex-col gap-4">
-            {articles?.slice(8, 12).map((article) => {
-              return typeof article === "number" ? (
-                <Skeleton className="w-full h-[120px]" />
-              ) : (
-                <Link
-                  to={`${to}?url=${encodeURI(article.url)}${
-                    sourceId ? `&source=${sourceId}` : ""
-                  }`}
-                  state={{ isNotFirstLocation: true }}
-                  className="flex gap-4"
-                  key={article.url}
-                >
-                  <div className="w-[200px] h-[120px] relative">
-                    <img
-                      src={article.urlToImage}
-                      className="absolute inset-0 w-full h-full object-cover"
-                      alt=""
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-bold text-[#4C4E4D] duration-100 group-hover:text-[#333333] text-lg">
-                      {article.title}
-                    </h4>
-                    <p className="text-[#4C4E4D] text-sm mt-2">
-                      {article.description}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
+            {articles?.slice(8, 12).map((article) => (
+              <HorizontalArticle
+                key={typeof article === "number" ? article : article.url}
+                article={article}
+                sourceId={sourceId}
+              />
+            ))}
           </div>
           <div className="mt-10 flex lg:hidden flex-col gap-4">
-            {articles?.slice(5).map((article) => {
-              return typeof article === "number" ? (
-                <div
-                  key={article}
-                  className="flex flex-col xs:flex-row gap-4 md:gap-[30px]"
-                >
-                  <Skeleton className="w-full xs:min-w-[200px] h-[120px]" />
-                  <div className="flex-1">
-                    <Skeleton className="w-full h-[36px] mb-3" />
-                    <Skeleton className="w-full h-[24px]" />
-                  </div>
-                </div>
-              ) : (
-                <Link
-                  to={`${to}?url=${encodeURI(article.url)}${
-                    sourceId ? `&source=${sourceId}` : ""
-                  }`}
-                  state={{ isNotFirstLocation: true }}
-                  className="flex flex-col xs:flex-row gap-1 group xs:gap-4 md:gap-[30px]"
-                  key={article.url}
-                >
-                  <div className="w-full xs:w-[200px] h-[120px] relative">
-                    <img
-                      src={article.urlToImage}
-                      className="absolute inset-0 w-full h-full object-cover"
-                      alt=""
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-bold text-[#4C4E4D] duration-100 group-hover:text-[#333333] text-base leading-[1.3] md:text-lg mb-1 md:mb-3">
-                      {article.title}
-                    </h4>
-                    <p className="text-[#454541] text-xs lg:text-sm">
-                      {article.description?.slice(0, 90) + "..."}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
+            {articles?.slice(5).map((article) => (
+              <HorizontalArticle
+                key={typeof article === "number" ? article : article.url}
+                article={article}
+                sourceId={sourceId}
+              />
+            ))}
           </div>
         </div>
         <div className="flex-1 hidden max-w-[300px] lg:flex flex-col gap-6">
-          {articles?.slice(5, 8).map((article) => {
-            return typeof article === "number" ? (
-              <div key={article}>
-                <Skeleton className="w-full h-[120px] mb-2" />
-                <Skeleton className="w-full h-[43px] mb-2" />
-                <Skeleton className="w-full h-[20px]" />
-              </div>
-            ) : (
-              <Link
-                to={`${to}?url=${encodeURI(article.url)}${
-                  sourceId ? `&source=${sourceId}` : ""
-                }`}
-                key={article.url}
-                state={{ isFirstLocation: true }}
-                className="w-full group"
-              >
-                <div className="w-full block h-[120px] relative">
-                  <img
-                    src={article.urlToImage}
-                    className="h-full w-full absolute inset-0 object-cover"
-                    alt=""
-                  />
-                </div>
-                <div className="mt-3">
-                  <h4 className="text-[24px] text-[#4C4E4D] duration-100 group-hover:text-[#333333] font-bold leading-[1.15]">
-                    {article.title?.slice(0, 60) + "..."}
-                  </h4>
-                  <p className="text-[#454541] text-sm mt-3">
-                    {article.description?.slice(0, 90) + "..."}
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
+          {articles?.slice(5, 8).map((article) => (
+            <SideArticle
+              key={typeof article === "number" ? article : article.url}
+              article={article}
+              sourceId={sourceId}
+            />
+          ))}
         </div>
       </div>
     </div>
