@@ -1,11 +1,12 @@
 import NewsList from "../components/NewsList";
 import {
-  useGetFeaturedQuery,
   useGetSourcesQuery,
+  useGetArticlesQuery
 } from "../features/api/apiSlice";
 
 export default function Home() {
-  const { isLoading, isError, data: news } = useGetFeaturedQuery(undefined);
+  const { isLoading, isError, data: news } = useGetArticlesQuery(undefined);
+
   const {  isError: sourcesError } =
     useGetSourcesQuery(undefined);
   if (isError || sourcesError) {
@@ -20,7 +21,7 @@ export default function Home() {
       <div className="h-full">
         <NewsList
           title="Trending"
-          news={news || [0,1,2,3,4,5,6,7,8,9]}
+          news={news}
           isLoading={isLoading}
           to="/article"
         />

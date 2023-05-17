@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 interface ArticleCarouselProps {
   articles: Article[];
   to: string;
+  sourceId?: string | undefined;
+
 }
-export default function ArticleCarousel({ articles, to }: ArticleCarouselProps) {
+export default function ArticleCarousel({ articles, to, sourceId }: ArticleCarouselProps) {
   const [index, setIndex] = useState(0);
   const goPrev = () => {
     if (index > 0) {
@@ -41,7 +43,7 @@ export default function ArticleCarousel({ articles, to }: ArticleCarouselProps) 
           <motion.div
             animate={{ x: `-${index * 100}%` }}
             transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-            key={article.id}
+            key={article.url}
             className="min-w-full w-full h-[453px] relative"
           >
             <img
@@ -50,7 +52,7 @@ export default function ArticleCarousel({ articles, to }: ArticleCarouselProps) 
               className="absolute inset-0 h-full w-full object-cover"
             />
             <Link
-              to={`${to}/${article.id}`}
+              to={`/article?url=${encodeURI(article.url)}${sourceId ? `&source=${sourceId}` : ""}`}
               className="block absolute bottom-0 -left-[1px] z-10 bg-white pr-[18px] w-full border-b border-r border-l border-[#454541] border-opacity-10 sm:w-[332px] h-[178px] pl-[18px]"
             >
               <p className="mt-4 mb-2.5">

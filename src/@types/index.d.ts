@@ -7,7 +7,6 @@ interface Article {
     title: string;
     url: string;
     urlToImage: string;
-    id:string
   }
   interface Source {
       id: string;
@@ -20,3 +19,7 @@ interface Article {
   interface TransformResponse {
       articles: Article[];
   }
+
+  type Params =
+  | { type: "source"; source: string }
+  | { type: "search"; query: string } | undefined;

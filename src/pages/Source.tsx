@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import {
-  useGetArticleFromSourceQuery,
+  useGetArticlesQuery,
   useGetSourcesQuery,
-} from "../../features/api/apiSlice";
-import NewsList from "../../components/NewsList";
-import NotFound from "../NotFound";
+} from "../features/api/apiSlice";
+import NewsList from "../components/NewsList";
+import NotFound from "./NotFound";
 
 export default function Source() {
   const { sourceId } = useParams();
@@ -12,7 +12,7 @@ export default function Source() {
     data: articles,
     isLoading,
     isError,
-  } = useGetArticleFromSourceQuery(sourceId);
+  } = useGetArticlesQuery({type: "source", source: sourceId as string});
   const { data, isLoading: sourcesLoading } = useGetSourcesQuery(undefined);
   const source = data?.find((source) => source.id === sourceId);
   if (isError) {
@@ -22,10 +22,11 @@ export default function Source() {
   }
   return (
     <NewsList
-      news={articles || [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
+      news={articles}
       isLoading={isLoading || sourcesLoading}
       title={source?.name}
-      to={`/source/${sourceId}/article`}
+      sourceId={sourceId}
+      to={`/article`}
     />
   );
 }

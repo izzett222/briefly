@@ -1,5 +1,5 @@
 import Skeleton from "react-loading-skeleton";
-import { useGetSearchResultsQuery } from "../features/api/apiSlice";
+import { useGetArticlesQuery } from "../features/api/apiSlice";
 import { Link } from "react-router-dom";
 
 interface SearchResultsProps {
@@ -7,7 +7,7 @@ interface SearchResultsProps {
 }
 
 export default function SearchResults({ searchValue }: SearchResultsProps) {
-  const { data, isLoading, isError } = useGetSearchResultsQuery(searchValue);
+  const { data, isLoading, isError } = useGetArticlesQuery({type: "search", query: searchValue});
   const articles = isLoading ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] : data;
   if (isError) {
     return (
@@ -34,10 +34,11 @@ export default function SearchResults({ searchValue }: SearchResultsProps) {
                 </div>
               );
             }
+            
             return (
               <Link
-                to={`/search/${searchValue}/article/${article.id}`}
-                key={article.id}
+                to={`/article?url=${article.url}&q=${searchValue}`}
+                key={article.url}
                 className="flex flex-col sm:flex-row gap-4 max-w-[700px]"
               >
                 <div className="sm:w-[200px] h-[120px] relative">

@@ -1,15 +1,31 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
-import { useGetFeaturedQuery } from "../features/api/apiSlice";
+import { useGetArticlesQuery } from "../features/api/apiSlice";
+import Skeleton from "react-loading-skeleton";
 
 export default function Article() {
-  const { articleId } = useParams();
   const navigate = useNavigate();
-
-  const { data: articles } = useGetFeaturedQuery(undefined);
-  const article = articles?.find((article) => article.id === articleId);
+  const [searchParams] = useSearchParams()
+  const url = searchParams.get("url")
+  const source = searchParams.get("source");
+  const query = searchParams.get("q")
+  const queryData: Params = source ? { type: "source",  source } : query ? { type: "search", query: query } : undefined;
+  const { data: articles, isLoading } = useGetArticlesQuery(queryData);
+  const article = articles?.find((article) => article.url === url);
 
   const regex = /\[.*\]$/g;
+  if (isLoading) {
+    return <div className="pt-8 pb-8">
+      <div>
+        <Skeleton className="w-full h-20 mt-10 mb-3" />
+        <Skeleton className="max-w-[300px] h-5" />
+        <Skeleton className="max-w-[70%] h-12 mt-7" />
+        <Skeleton className="max-w-[132px] h-12 mt-8 mb-4" />
+        <Skeleton className="max-w-[80%] h-[400px] mt-8 mb-4" />
+      </div>
+
+    </div>
+  }
   if (!article) {
     return (
       <div className="px-5">
@@ -27,7 +43,7 @@ export default function Article() {
     <div className="pt-8 pb-8 text-[#4C4E4D]">
       <BackButton
         handleClick={() => {
-          navigate("..");
+          navigate(-1);
         }}
       />
       <h1 className="font-medium text-[54px] leading-[1.1] mt-9 mb-3">
