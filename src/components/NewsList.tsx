@@ -9,8 +9,14 @@ type Props = {
   to: string;
   sourceId?: string | undefined;
 };
-export default function NewsList({ title, news, isLoading, to, sourceId }: Props) {
-  const articles = isLoading ? [0,1,2,3,4,5,6,7,8,9] : news;
+export default function NewsList({
+  title,
+  news,
+  isLoading,
+  to,
+  sourceId,
+}: Props) {
+  const articles = isLoading ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] : news;
   return (
     <div>
       {!title && isLoading ? (
@@ -28,7 +34,11 @@ export default function NewsList({ title, news, isLoading, to, sourceId }: Props
           {isLoading ? (
             <Skeleton className="w-full h-[453px]" />
           ) : (
-            <AritcleCarousel to={to} sourceId={sourceId} articles={news?.slice(0, 5) as Article[]} />
+            <AritcleCarousel
+              to={to}
+              sourceId={sourceId}
+              articles={news?.slice(0, 5) as Article[]}
+            />
           )}
 
           <div className="mt-10 hidden  lg:flex flex-col gap-4">
@@ -44,10 +54,13 @@ export default function NewsList({ title, news, isLoading, to, sourceId }: Props
                   </div>
                 );
               }
-              const url = `${to}?url=${encodeURI(article.url)}${sourceId ? `&source=${sourceId}` : ""}`
+              const url = `${to}?url=${encodeURI(article.url)}${
+                sourceId ? `&source=${sourceId}` : ""
+              }`;
               return (
                 <Link
                   to={url}
+                  state={{ isNotFirstLocation: true }}
                   className="flex group gap-4 md:gap-[30px]"
                   key={article.url}
                 >
@@ -59,7 +72,9 @@ export default function NewsList({ title, news, isLoading, to, sourceId }: Props
                     />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-[#4C4E4D] duration-100 group-hover:text-[#333333] text-lg mb-3">{article.title}</h4>
+                    <h4 className="font-bold text-[#4C4E4D] duration-100 group-hover:text-[#333333] text-lg mb-3">
+                      {article.title}
+                    </h4>
                     <p className="text-[#454541] text-sm">
                       {article.description?.slice(0, 90) + "..."}
                     </p>
@@ -72,7 +87,10 @@ export default function NewsList({ title, news, isLoading, to, sourceId }: Props
             {articles?.slice(5).map((article) => {
               if (typeof article === "number") {
                 return (
-                  <div key={article} className="flex flex-col xs:flex-row gap-4 md:gap-[30px]">
+                  <div
+                    key={article}
+                    className="flex flex-col xs:flex-row gap-4 md:gap-[30px]"
+                  >
                     <Skeleton className="w-full xs:min-w-[200px] h-[120px]" />
                     <div className="flex-1">
                       <Skeleton className="w-full h-[36px] mb-3" />
@@ -81,10 +99,13 @@ export default function NewsList({ title, news, isLoading, to, sourceId }: Props
                   </div>
                 );
               }
-              const url = `${to}?url=${encodeURI(article.url)}${sourceId ? `&source=${sourceId}` : ""}`
+              const url = `${to}?url=${encodeURI(article.url)}${
+                sourceId ? `&source=${sourceId}` : ""
+              }`;
               return (
                 <Link
                   to={url}
+                  state={{ isNotFirstLocation: true }}
                   className="flex flex-col xs:flex-row gap-1 group xs:gap-4 md:gap-[30px]"
                   key={article.url}
                 >
@@ -120,14 +141,18 @@ export default function NewsList({ title, news, isLoading, to, sourceId }: Props
               );
             }
 
-            const url = `${to}?url=${encodeURI(article.url)}${sourceId ? `&source=${sourceId}` : ""}`
+            const url = `${to}?url=${encodeURI(article.url)}${
+              sourceId ? `&source=${sourceId}` : ""
+            }`;
 
             return (
-              <Link to={url} key={article.url} className="w-full group">
-                <div
-                  
-                  className="w-full block h-[120px] relative"
-                >
+              <Link
+                to={url}
+                key={article.url}
+                state={{ isFirstLocation: true }}
+                className="w-full group"
+              >
+                <div className="w-full block h-[120px] relative">
                   <img
                     src={article.urlToImage}
                     className="h-full w-full absolute inset-0 object-cover"

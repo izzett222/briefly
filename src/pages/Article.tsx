@@ -1,30 +1,42 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useSearchParams,
+  useLocation,
+} from "react-router-dom";
 import BackButton from "../components/BackButton";
 import { useGetArticlesQuery } from "../features/api/apiSlice";
 import Skeleton from "react-loading-skeleton";
 
 export default function Article() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams()
-  const url = searchParams.get("url")
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const isNotFirstLocation = location.state?.isNotFirstLocation;
+  const url = searchParams.get("url");
   const source = searchParams.get("source");
-  const query = searchParams.get("q")
-  const queryData: Params = source ? { type: "source",  source } : query ? { type: "search", query: query } : undefined;
+  const query = searchParams.get("q");
+  const queryData: Params = source
+    ? { type: "source", source }
+    : query
+    ? { type: "search", query: query }
+    : undefined;
   const { data: articles, isLoading } = useGetArticlesQuery(queryData);
   const article = articles?.find((article) => article.url === url);
 
   const regex = /\[.*\]$/g;
   if (isLoading) {
-    return <div className="pt-8 pb-8">
-      <div>
-        <Skeleton className="w-full h-20 mt-10 mb-3" />
-        <Skeleton className="max-w-[300px] h-5" />
-        <Skeleton className="max-w-[70%] h-12 mt-7" />
-        <Skeleton className="max-w-[132px] h-12 mt-8 mb-4" />
-        <Skeleton className="max-w-[80%] h-[400px] mt-8 mb-4" />
+    return (
+      <div className="pt-8 pb-8">
+        <div>
+          <Skeleton className="w-full h-20 mt-10 mb-3" />
+          <Skeleton className="max-w-[300px] h-5" />
+          <Skeleton className="max-w-[70%] h-12 mt-7" />
+          <Skeleton className="max-w-[132px] h-12 mt-8 mb-4" />
+          <Skeleton className="max-w-[80%] h-[400px] mt-8 mb-4" />
+        </div>
       </div>
-
-    </div>
+    );
   }
   if (!article) {
     return (
@@ -33,19 +45,29 @@ export default function Article() {
           <h1 className="text-[90px] font-extrabold text-[#4C4E4D] leading-[1]">
             Briefly
           </h1>
-          <h2 className="text-[#4C4E4D] font-medium text-[37px] mt-5 mb-2.5">404 Not found</h2>
-          <p className="text-[27px] text-[#4C4E4D] leading-[1.3]">This page couldn't be found! Visit the <Link to="/" className="underline">Briefly homepage</Link>  if you like.</p>
+          <h2 className="text-[#4C4E4D] font-medium text-[37px] mt-5 mb-2.5">
+            404 Not found
+          </h2>
+          <p className="text-[27px] text-[#4C4E4D] leading-[1.3]">
+            This page couldn't be found! Visit the{" "}
+            <Link to="/" className="underline">
+              Briefly homepage
+            </Link>{" "}
+            if you like.
+          </p>
         </div>
       </div>
     );
   }
   return (
     <div className="pt-8 pb-8 text-[#4C4E4D]">
-      <BackButton
-        handleClick={() => {
-          navigate(-1);
-        }}
-      />
+      {isNotFirstLocation && (
+        <BackButton
+          handleClick={() => {
+            navigate(-1);
+          }}
+        />
+      )}
       <h1 className="font-medium text-[54px] leading-[1.1] mt-9 mb-3">
         {article.title}
       </h1>

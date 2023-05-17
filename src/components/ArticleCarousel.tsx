@@ -53,6 +53,7 @@ export default function ArticleCarousel({ articles, to, sourceId }: ArticleCarou
             />
             <Link
               to={`/article?url=${encodeURI(article.url)}${sourceId ? `&source=${sourceId}` : ""}`}
+              state={{ isNotFirstLocation: true }}
               className="block absolute bottom-0 -left-[1px] z-10 bg-white pr-[18px] w-full border-b border-r border-l border-[#454541] border-opacity-10 sm:w-[332px] h-[178px] pl-[18px]"
             >
               <p className="mt-4 mb-2.5">
