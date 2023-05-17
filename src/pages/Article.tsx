@@ -61,13 +61,7 @@ export default function Article() {
   }
   return (
     <div className="pt-8 pb-8 text-[#4C4E4D]">
-      {isNotFirstLocation && (
-        <BackButton
-          handleClick={() => {
-            navigate(-1);
-          }}
-        />
-      )}
+      {isNotFirstLocation && <BackButton handleClick={() => navigate(-1)} />}
       <h1 className="font-medium text-[54px] leading-[1.1] mt-9 mb-3">
         {article.title}
       </h1>

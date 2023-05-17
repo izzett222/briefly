@@ -43,25 +43,15 @@ export default function NewsList({
 
           <div className="mt-10 hidden  lg:flex flex-col gap-4">
             {articles?.slice(8, 12).map((article) => {
-              if (typeof article === "number") {
-                return (
-                  <div className="flex gap-4 md:gap-[30px]" key={article}>
-                    <Skeleton className="w-[200px] h-[120px]" />
-                    <div className="flex-1">
-                      <Skeleton className="w-full h-[36px] mb-3" />
-                      <Skeleton className="w-full h-[24px]" />
-                    </div>
-                  </div>
-                );
-              }
-              const url = `${to}?url=${encodeURI(article.url)}${
-                sourceId ? `&source=${sourceId}` : ""
-              }`;
-              return (
+              return typeof article === "number" ? (
+                <Skeleton className="w-full h-[120px]" />
+              ) : (
                 <Link
-                  to={url}
+                  to={`${to}?url=${encodeURI(article.url)}${
+                    sourceId ? `&source=${sourceId}` : ""
+                  }`}
                   state={{ isNotFirstLocation: true }}
-                  className="flex group gap-4 md:gap-[30px]"
+                  className="flex gap-4"
                   key={article.url}
                 >
                   <div className="w-[200px] h-[120px] relative">
@@ -72,11 +62,11 @@ export default function NewsList({
                     />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-[#4C4E4D] duration-100 group-hover:text-[#333333] text-lg mb-3">
+                    <h4 className="font-bold text-[#4C4E4D] duration-100 group-hover:text-[#333333] text-lg">
                       {article.title}
                     </h4>
-                    <p className="text-[#454541] text-sm">
-                      {article.description?.slice(0, 90) + "..."}
+                    <p className="text-[#4C4E4D] text-sm mt-2">
+                      {article.description}
                     </p>
                   </div>
                 </Link>
@@ -85,26 +75,22 @@ export default function NewsList({
           </div>
           <div className="mt-10 flex lg:hidden flex-col gap-4">
             {articles?.slice(5).map((article) => {
-              if (typeof article === "number") {
-                return (
-                  <div
-                    key={article}
-                    className="flex flex-col xs:flex-row gap-4 md:gap-[30px]"
-                  >
-                    <Skeleton className="w-full xs:min-w-[200px] h-[120px]" />
-                    <div className="flex-1">
-                      <Skeleton className="w-full h-[36px] mb-3" />
-                      <Skeleton className="w-full h-[24px]" />
-                    </div>
+              return typeof article === "number" ? (
+                <div
+                  key={article}
+                  className="flex flex-col xs:flex-row gap-4 md:gap-[30px]"
+                >
+                  <Skeleton className="w-full xs:min-w-[200px] h-[120px]" />
+                  <div className="flex-1">
+                    <Skeleton className="w-full h-[36px] mb-3" />
+                    <Skeleton className="w-full h-[24px]" />
                   </div>
-                );
-              }
-              const url = `${to}?url=${encodeURI(article.url)}${
-                sourceId ? `&source=${sourceId}` : ""
-              }`;
-              return (
+                </div>
+              ) : (
                 <Link
-                  to={url}
+                  to={`${to}?url=${encodeURI(article.url)}${
+                    sourceId ? `&source=${sourceId}` : ""
+                  }`}
                   state={{ isNotFirstLocation: true }}
                   className="flex flex-col xs:flex-row gap-1 group xs:gap-4 md:gap-[30px]"
                   key={article.url}
@@ -131,23 +117,17 @@ export default function NewsList({
         </div>
         <div className="flex-1 hidden max-w-[300px] lg:flex flex-col gap-6">
           {articles?.slice(5, 8).map((article) => {
-            if (typeof article === "number") {
-              return (
-                <div key={article}>
-                  <Skeleton className="w-full h-[120px] mb-2" />
-                  <Skeleton className="w-full h-[43px] mb-2" />
-                  <Skeleton className="w-full h-[20px]" />
-                </div>
-              );
-            }
-
-            const url = `${to}?url=${encodeURI(article.url)}${
-              sourceId ? `&source=${sourceId}` : ""
-            }`;
-
-            return (
+            return typeof article === "number" ? (
+              <div key={article}>
+                <Skeleton className="w-full h-[120px] mb-2" />
+                <Skeleton className="w-full h-[43px] mb-2" />
+                <Skeleton className="w-full h-[20px]" />
+              </div>
+            ) : (
               <Link
-                to={url}
+                to={`${to}?url=${encodeURI(article.url)}${
+                  sourceId ? `&source=${sourceId}` : ""
+                }`}
                 key={article.url}
                 state={{ isFirstLocation: true }}
                 className="w-full group"
