@@ -13,9 +13,7 @@ export default function Article() {
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const isNotFirstLocation = location.state?.isNotFirstLocation;
-  const url = searchParams.get("url");
-  const source = searchParams.get("source");
-  const query = searchParams.get("q");
+  const { url, source, query } = Object.fromEntries(searchParams.entries());
   const queryData: Params = source
     ? { type: "source", source }
     : query
